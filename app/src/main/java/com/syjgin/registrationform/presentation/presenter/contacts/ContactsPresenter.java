@@ -20,11 +20,7 @@ public class ContactsPresenter extends MvpPresenter<ContactsView> {
     }
 
     private void validate() {
-        Pattern phonePattern = Pattern.compile("^\\+[0-9]\\([0-9]{3}\\)[0-9]{3}-[0-9]{2}-[0-9]{2}$", Pattern.CASE_INSENSITIVE);
-        Pattern emailPattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-        boolean isPhoneValid = phonePattern.matcher(phoneNumber).find();
-        boolean isEmailValid = emailPattern.matcher(email).find();
-        boolean isValid = isPhoneValid && isEmailValid;
+        boolean isValid = validatePhone() && validateEmail();
         EventBus.getDefault().post(new ValidationEvent(isValid));
     }
 
@@ -36,5 +32,15 @@ public class ContactsPresenter extends MvpPresenter<ContactsView> {
     public void updateEmail(String email) {
         this.email = email;
         validate();
+    }
+
+    private boolean validateEmail() {
+        Pattern emailPattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        return emailPattern.matcher(email).find();
+    }
+
+    private boolean validatePhone() {
+        Pattern phonePattern = Pattern.compile("^[0-9]{10}$", Pattern.CASE_INSENSITIVE);
+        return phonePattern.matcher(phoneNumber).find();
     }
 }

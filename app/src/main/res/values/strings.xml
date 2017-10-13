@@ -12,4 +12,5 @@
     <string name="mail_hint">mail@server.com</string>
     <string name="email_caption">Введите адрес email:</string>
     <string name="name_caption">Введите данные ФИО:</string>
+    <string name="address_caption">Введите адрес:</string>
 </resources>

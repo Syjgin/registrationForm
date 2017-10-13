@@ -8,4 +8,7 @@ import com.arellomobile.mvp.MvpPresenter;
 @InjectViewState
 public class AddressPresenter extends MvpPresenter<AddressView> {
 
+    public void onCreate() {
+
+    }
 }

@@ -7,14 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.syjgin.registrationform.R;
 import com.syjgin.registrationform.presentation.presenter.name.NamePresenter;
 import com.syjgin.registrationform.presentation.view.name.NameView;
+import com.syjgin.registrationform.ui.fragment.base.BaseFormFragment;
 import com.syjgin.registrationform.utils.AfterTextChangedWatcher;
 
-public class NameFragment extends MvpAppCompatFragment implements NameView {
+public class NameFragment extends BaseFormFragment implements NameView {
     @InjectPresenter
     NamePresenter presenter;
 
@@ -29,7 +29,7 @@ public class NameFragment extends MvpAppCompatFragment implements NameView {
         nameField = view.findViewById(R.id.nameField);
         surnameField = view.findViewById(R.id.surnameField);
         fathernameField = view.findViewById(R.id.fathernameField);
-        presenter.onCreate();
+        finishSetup();
         return view;
     }
 
@@ -59,7 +59,7 @@ public class NameFragment extends MvpAppCompatFragment implements NameView {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    protected void onFirstVisible() {
+        presenter.onCreate();
     }
 }

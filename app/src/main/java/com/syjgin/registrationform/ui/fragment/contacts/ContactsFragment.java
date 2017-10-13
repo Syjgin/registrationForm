@@ -10,16 +10,16 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.syjgin.registrationform.R;
 import com.syjgin.registrationform.presentation.presenter.contacts.ContactsPresenter;
 import com.syjgin.registrationform.presentation.view.contacts.ContactsView;
+import com.syjgin.registrationform.ui.fragment.base.BaseFormFragment;
 import com.syjgin.registrationform.utils.AfterTextChangedWatcher;
 
 import br.com.sapereaude.maskedEditText.MaskedEditText;
 
-public class ContactsFragment extends MvpAppCompatFragment implements ContactsView {
+public class ContactsFragment extends BaseFormFragment implements ContactsView {
     @InjectPresenter
     ContactsPresenter presenter;
 
@@ -54,11 +54,16 @@ public class ContactsFragment extends MvpAppCompatFragment implements ContactsVi
         phoneText.addTextChangedListener(new AfterTextChangedWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
-                presenter.updatePhone(editable.toString());
+                presenter.updatePhone(phoneText.getRawText());
             }
         });
 
-        presenter.onCreate();
+        finishSetup();
         return view;
+    }
+
+    @Override
+    protected void onFirstVisible() {
+        presenter.onCreate();
     }
 }
