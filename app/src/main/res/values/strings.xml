@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">RegistrationForm</string>
+    <string name="personal_data">Личные данные</string>
+    <string name="contacts">Контакты</string>
+    <string name="address">Адрес</string>
+    <string name="next">Далее</string>
+    <string name="done">Готово</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="fathername">Отчество</string>
+    <string name="phone_caption">Введите номер телефона:</string>
+    <string name="mail_hint">mail@server.com</string>
+    <string name="email_caption">Введите адрес email:</string>
+    <string name="name_caption">Введите данные ФИО:</string>
+</resources>
