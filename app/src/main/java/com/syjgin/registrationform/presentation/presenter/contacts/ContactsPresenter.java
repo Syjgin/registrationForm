@@ -1,10 +1,10 @@
 package com.syjgin.registrationform.presentation.presenter.contacts;
 
 
-import com.syjgin.registrationform.model.ValidationEvent;
-import com.syjgin.registrationform.presentation.view.contacts.ContactsView;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.syjgin.registrationform.model.FormData;
+import com.syjgin.registrationform.presentation.view.contacts.ContactsView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -21,7 +21,12 @@ public class ContactsPresenter extends MvpPresenter<ContactsView> {
 
     private void validate() {
         boolean isValid = validatePhone() && validateEmail();
-        EventBus.getDefault().post(new ValidationEvent(isValid));
+        FormData event = new FormData(isValid);
+        if(isValid) {
+            event.setEmail(email);
+            event.setPhone(phoneNumber);
+        }
+        EventBus.getDefault().post(event);
     }
 
     public void updatePhone(String phoneNumber) {

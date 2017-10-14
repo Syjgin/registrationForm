@@ -34,7 +34,7 @@ public class Repository {
                                     Request.Builder builder = original.newBuilder();
                                     builder.addHeader("Content-Type", "application/json");
                                     builder.addHeader("Accept", "application/json");
-                                    builder.addHeader("Authorization", String.format("Token %s", "9dd6d7b3a20b409da53ff45a87f56f7fe4c2545c"));
+                                    builder.addHeader("Authorization", "Token 9dd6d7b3a20b409da53ff45a87f56f7fe4c2545c");
                                     Request changed = builder.build();
                                     TrafficStats.setThreadStatsTag(0xF00D);
                                     return chain.proceed(changed);

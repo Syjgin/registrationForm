@@ -4,7 +4,7 @@ package com.syjgin.registrationform.presentation.presenter.address;
 import com.syjgin.registrationform.interactor.SuggestionInteractor;
 import com.syjgin.registrationform.model.DaDataResponse;
 import com.syjgin.registrationform.model.DaDataSuggestion;
-import com.syjgin.registrationform.model.ValidationEvent;
+import com.syjgin.registrationform.model.FormData;
 import com.syjgin.registrationform.presentation.view.address.AddressView;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -50,7 +50,11 @@ public class AddressPresenter extends MvpPresenter<AddressView> {
     }
 
     private void validate() {
-        EventBus.getDefault().post(new ValidationEvent(!addressText.isEmpty()));
+        FormData event = new FormData(!addressText.isEmpty());
+        if(event.isValidationSuccess()) {
+            event.setAddress(addressText);
+        }
+        EventBus.getDefault().post(event);
     }
 
     public void requestSuggestions(String text) {

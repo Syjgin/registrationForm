@@ -24,6 +24,7 @@
         app:keep_hint="false"
         android:textSize="16sp"
         android:nextFocusDown="@+id/email"
+        android:imeOptions="actionNext"
         />
     <TextView
         android:layout_width="match_parent"
@@ -38,5 +39,6 @@
         android:hint="@string/mail_hint"
         android:textSize="16sp"
         android:id="@+id/email"
-        android:inputType="textEmailAddress"/>
+        android:inputType="textEmailAddress"
+        android:imeOptions="actionDone"/>
 </LinearLayout>

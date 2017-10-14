@@ -41,7 +41,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     }
 
     @Override
-    public void setButtonText(String text) {
+    public void setButtonText(int text) {
         nextButton.setText(text);
     }
 

@@ -3,7 +3,7 @@ package com.syjgin.registrationform.presentation.presenter.name;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.syjgin.registrationform.model.ValidationEvent;
+import com.syjgin.registrationform.model.FormData;
 import com.syjgin.registrationform.presentation.view.name.NameView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -22,7 +22,13 @@ public class NamePresenter extends MvpPresenter<NameView> {
 
     private void validate() {
         boolean isValid = !name.isEmpty() && !surname.isEmpty() && !fathername.isEmpty();
-        EventBus.getDefault().post(new ValidationEvent(isValid));
+        FormData event = new FormData(isValid);
+        if(isValid) {
+            event.setName(name);
+            event.setSurname(surname);
+            event.setFathername(fathername);
+        }
+        EventBus.getDefault().post(event);
     }
 
     public void updateName(String name) {

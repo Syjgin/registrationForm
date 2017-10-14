@@ -6,12 +6,12 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 public interface MainView extends MvpView {
     @StateStrategyType(AddToEndSingleStrategy.class)
-    void setTitle(CharSequence title);
+    void setTitle(int resource);
 
     void finish();
 
     @StateStrategyType(AddToEndSingleStrategy.class)
-    void setButtonText(String text);
+    void setButtonText(int resource);
 
     @StateStrategyType(AddToEndSingleStrategy.class)
     void setButtonEnabled(boolean isEnabled);

@@ -2,12 +2,12 @@ package com.syjgin.registrationform.presentation.presenter.main;
 
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.syjgin.registrationform.R;
-import com.syjgin.registrationform.app.App;
-import com.syjgin.registrationform.model.ValidationEvent;
+import com.syjgin.registrationform.model.FormData;
 import com.syjgin.registrationform.navigation.FragmentId;
 import com.syjgin.registrationform.presentation.view.main.MainView;
 import com.syjgin.registrationform.ui.adapter.MainAdapter;
@@ -26,6 +26,8 @@ public class MainPresenter extends MvpPresenter<MainView> implements MainAdapter
 
     private int currentFragment = 0;
 
+    private FormData formData = new FormData(true);
+
     public void onCreate() {
         refreshViewState();
         if(!EventBus.getDefault().isRegistered(this)) {
@@ -42,23 +44,23 @@ public class MainPresenter extends MvpPresenter<MainView> implements MainAdapter
     private void refreshViewState() {
         FragmentId currentId = FragmentId.valueOf(currentFragment);
         boolean backButtonVisible = false;
-        String title = "";
-        String buttonTitle = "";
+        int title = 0;
+        int buttonTitle = 0;
         switch (currentId) {
             case FRAGMENT_ID_NAME:
                 backButtonVisible = false;
-                title = App.instance().getString(R.string.personal_data);
-                buttonTitle = App.instance().getString(R.string.next);
+                title = R.string.personal_data;
+                buttonTitle = R.string.next;
                 break;
             case FRAGMENT_ID_CONTACTS:
                 backButtonVisible = true;
-                title = App.instance().getString(R.string.contacts);
-                buttonTitle = App.instance().getString(R.string.next);
+                title = R.string.contacts;
+                buttonTitle = R.string.next;
                 break;
             case FRAGMENT_ID_ADDRESS:
                 backButtonVisible = true;
-                title = App.instance().getString(R.string.address);
-                buttonTitle = App.instance().getString(R.string.done);
+                title = R.string.address;
+                buttonTitle = R.string.done;
                 break;
             case FRAGMENT_ID_NONE:
                 break;
@@ -74,7 +76,14 @@ public class MainPresenter extends MvpPresenter<MainView> implements MainAdapter
         if(nextFragment != FRAGMENT_ID_NONE) {
             currentFragment = nextFragment.getValue();
             refreshViewState();
+        } else {
+            sendDataToService();
         }
+    }
+
+    private void sendDataToService() {
+        Log.d("SEND_DATA", formData.toString());
+        //TODO: send data
     }
 
 
@@ -89,8 +98,11 @@ public class MainPresenter extends MvpPresenter<MainView> implements MainAdapter
     }
 
     @Subscribe
-    public void setButtonEnabled(ValidationEvent event) {
+    public void onReceiveFormData(FormData event) {
         getViewState().setButtonEnabled(event.isValidationSuccess());
+        if(event.isValidationSuccess()) {
+            formData.copyData(event);
+        }
     }
 
     @Override
